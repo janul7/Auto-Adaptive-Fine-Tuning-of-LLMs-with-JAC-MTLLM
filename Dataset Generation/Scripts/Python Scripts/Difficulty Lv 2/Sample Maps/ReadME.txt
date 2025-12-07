@@ -1,1 +1,0 @@
-this includes sample maps of .........py its first few levels has moderate complexity of wall and enemy placement but when it goes to larger levels we can see that its somplexity decresign due to low nimber of walls and enemies dont have a good placement thoses are fixed in next implementation .........py has them fixed.
