@@ -1,0 +1,183 @@
+/* =========================================================
+   upload.css — STRICT PALETTE THEME (matches home/landing)
+   Palette only:
+   - Background: #0F0F0F – #1A1A1A
+   - Accent (orange): #FF6600 – #FF7A1A
+   - Primary text: #FFFFFF
+   - Secondary text: #BFBFBF – #CCCCCC
+   - Gray surfaces / secondary button: #333333 – #444444
+   No images. No functionality changes.
+   ========================================================= */
+
+/* ------------ Design Tokens ------------ */
+:root{
+  --bg-0:#0F0F0F;
+  --bg-1:#1A1A1A;
+
+  --surface:#1A1A1A;
+  --gray-3:#333333;
+  --gray-4:#444444;
+
+  --text:#FFFFFF;
+  --text-muted:#C8C8C8;
+
+  --accent-1:#FF6600;
+  --accent-2:#FF7A1A;
+
+  --glass:rgba(255,255,255,0.05);
+  --glass-strong:rgba(255,255,255,0.08);
+  --glass-border:rgba(255,255,255,0.10);
+}
+
+/* ------------ Page Background (no images) ------------ */
+.page {
+  padding-top: 40px;  /* match navbar height */
+}
+
+.page .bg-gradient{
+  background: linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 100%) !important;
+  position: relative;
+}
+
+/* subtle texture using only neutral white transparency */
+.page .bg-gradient::before{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:
+    repeating-linear-gradient(135deg, rgba(255,255,255,0.015) 0 2px, transparent 2px 8px);
+}
+
+/* ------------ Upload Card ------------ */
+.upload-card{
+  max-width: 900px;
+  animation: fadeIn 0.8s ease-out;
+  background: var(--glass);               /* removed background image */
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.45);
+  color: var(--text);
+}
+
+/* Page heading inside the card (keeps markup intact) */
+.upload-card h1,
+.upload-card .title{
+  
+  margin: 0 0 1rem 0;
+  font-weight: 800;
+  color: var(--text);
+  text-align: center;
+}
+.upload-card h1 .highlight,
+.upload-card .title .highlight{
+  color: var(--accent-2);
+}
+
+/* ------------ Animations (unchanged) ------------ */
+@keyframes fadeIn { from {opacity:0; transform: scale(0.95);} to {opacity:1; transform: scale(1);} }
+@keyframes border-glow { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+@keyframes float-icon { 0%,100%{transform: translateY(0)} 50%{transform: translateY(-10px)} }
+
+/* ------------ Drop Zone ------------ */
+.drop-zone{
+  border: 2px dashed var(--gray-4);
+  border-radius: 20px;
+  padding: 4rem 2rem;
+  text-align: center;
+  margin: 2rem 0;
+  transition: all 0.3s ease;
+  position: relative;
+  cursor: pointer;
+  background: rgba(255,255,255,0.04);     /* neutral glass */
+  backdrop-filter: blur(10px);
+  color: var(--text);
+}
+
+/* Animated border glow (orange only) */
+.drop-zone::before{
+  content:"";
+  position:absolute; top:-2px; left:-2px; right:-2px; bottom:-2px;
+  background: linear-gradient(45deg, var(--accent-1), var(--accent-2), var(--accent-1));
+  border-radius: 20px;
+  z-index:-1;
+  opacity:0;
+  transition: opacity .3s ease;
+  background-size: 200% 200%;
+}
+
+.drop-zone:hover::before,
+.drop-zone.dragging::before{ opacity:.28; animation: border-glow 2s linear infinite; }
+
+.drop-zone:hover,
+.drop-zone.dragging{
+  border-color: var(--accent-2);
+  background: rgba(255,122,26,0.08);
+  transform: scale(1.02);
+  box-shadow: 0 10px 30px rgba(255,122,26,0.20);
+}
+
+.drop-zone.has-file{
+  border-color: var(--accent-2);
+  background: rgba(255,122,26,0.12);
+  box-shadow: 0 10px 30px rgba(255,122,26,0.22);
+}
+
+/* Icon & text inside drop zone */
+.drop-icon{
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: .85;
+  color: var(--text);
+  animation: float-icon 3s ease-in-out infinite;
+}
+
+.drop-text{
+  font-size: 1.2rem;
+  color: var(--text-muted);
+}
+.drop-text strong{
+  color: var(--text);
+  display:block;
+  margin-bottom:.5rem;
+  font-size:1.3rem;
+}
+
+/* Invisible input (unchanged functionality) */
+.file-input{
+  position:absolute; top:0; left:0; width:100%; height:100%;
+  opacity:0; cursor:pointer;
+}
+
+/* ------------ Buttons Row ------------ */
+.button-row{
+  display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-top:2rem;
+}
+
+/* Match global theme without changing global styles */
+.upload-card .btn{ color:#fff; }
+
+.upload-card .btn-primary{
+  background: linear-gradient(180deg, var(--accent-1), var(--accent-2)) !important;
+  border: none !important;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.6) !important;
+}
+.upload-card .btn-primary:hover{ filter: brightness(1.05); }
+
+.upload-card .btn-secondary,
+.upload-card .btn-ghost{
+  background: linear-gradient(180deg, var(--gray-4), var(--gray-3)) !important;
+  border: 1px solid var(--gray-4) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.55) !important;
+}
+.upload-card .btn-secondary:hover,
+.upload-card .btn-ghost:hover{
+  filter: brightness(1.06);
+  border-color: #4c4c4c !important;
+}
+
+/* ------------ Responsive ------------ */
+@media (max-width: 768px){
+  .drop-zone{ padding: 3rem 1rem; }
+  .button-row{ flex-direction: column; align-items: center; }
+  .button-row .btn{ width:100%; max-width:300px; }
+}

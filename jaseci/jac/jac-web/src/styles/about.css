@@ -1,0 +1,91 @@
+.about-hero{ padding: 7rem 1rem 2rem; text-align:center; }
+.media-grid{
+  max-width:1100px; margin:0 auto; padding:1rem; display:grid; gap:1rem;
+  grid-template-columns: 2fr 1fr; grid-auto-rows: minmax(220px, auto);
+}
+.media-grid .card{ background:var(--glass); border:1px solid var(--glass-border); border-radius:20px; padding:1rem; }
+.media .yt,.media .clip{ width:100%; height:100%; min-height:320px; border:0; border-radius:12px; }
+.notes h3{ margin:.25rem 0 .5rem; color:var(--accent-2); }
+.notes ul{ text-align:left; color:var(--text-muted); line-height:1.6; padding-left:1.25rem; }
+
+@media (max-width:980px){ .media-grid{ grid-template-columns:1fr; } .media .yt,.media .clip{ min-height:240px; } }
+
+
+
+/* fancy heading */
+.fancy-heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* new feature list style */
+.feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.feature-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--glass), transparent);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 4px 12px rgba(0,0,0,.25);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.feature-list li:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(0,0,0,.35);
+}
+
+/* icon style */
+.feature-list .icon {
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--accent-1);
+  filter: drop-shadow(0 0 6px rgba(255,140,0,.4));
+}
+
+/* text blocks */
+.feature-list h4 {
+  font-size: 1.1rem;
+  margin: 0;
+  color: var(--text-bright);
+}
+.feature-list p {
+  margin: 0.2rem 0 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* animations: subtle glow pulse */
+@keyframes glow {
+  0%, 100% { filter: drop-shadow(0 0 4px rgba(255,140,0,.3)); }
+  50% { filter: drop-shadow(0 0 12px rgba(255,140,0,.6)); }
+}
+.feature-list li:hover .icon {
+  animation: glow 1.8s infinite ease-in-out;
+}
+
+
+
+.about-hero {
+  text-align: center;              /* Centers inline text like <h1>, <p>, etc. */
+  display: flex;
+  flex-direction: column;
+  align-items: center;             /* Centers child elements horizontally */
+  justify-content: center;         /* Optional: vertical centering if you want */
+        
+}

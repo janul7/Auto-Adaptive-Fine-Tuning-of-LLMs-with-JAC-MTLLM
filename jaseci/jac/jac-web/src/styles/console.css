@@ -1,0 +1,229 @@
+/* =========================================================
+   console.css — STRICT PALETTE THEME (Home/Upload/Landing)
+   • Wider, page-aligned console (fills most of viewport width)
+   • Height kept large from last version
+   • No decorative window dots
+   Palette only:
+     - Background: #0F0F0F – #1A1A1A
+     - Accent (orange): #FF6600 – #FF7A1A
+     - Primary text: #FFFFFF
+     - Secondary text: #BFBFBF – #CCCCCC
+     - Gray surfaces / borders: #333333 – #444444
+   ========================================================= */
+
+/* ---------- Design Tokens ---------- */
+html[data-theme="dark"]{
+  --bg-0:#0F0F0F;
+  --bg-1:#1A1A1A;
+
+  --surface:#1A1A1A;
+  --gray-3:#333333;
+  --gray-4:#444444;
+
+  --text:#FFFFFF;
+  --text-muted:#C8C8C8;
+
+  --accent-1:#FF6600;
+  --accent-2:#FF7A1A;
+
+  --glass:rgba(255,255,255,0.05);
+  --glass-border:rgba(255,255,255,0.10);
+}
+
+html[data-theme="light"] {
+  --bg-0: #FCFCFD;
+  --bg-1: #F5F6F8;
+  --surface: #FFFFFF;
+  --gray-3: #E6E8EB;
+  --gray-4: #D9DBDF;
+  --text: #0F0F0F;
+  --text-muted: #4B4B4B;
+  --accent-1: #FF7A1A;
+  --accent-2: #FF5C00;
+  --glass: rgba(0, 0, 0, .04);
+  --glass-border: rgba(0, 0, 0, .08);
+}
+
+/* ---------- Page Background (no images) ---------- */
+.console-page .bg-gradient{
+  background: linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 100%) !important;
+  position: relative;
+}
+
+/* subtle texture using neutral transparency only */
+.console-page .bg-gradient::after{
+  content:""; position:absolute; inset:0; pointer-events:none; opacity:.35;
+  background:
+    repeating-linear-gradient(135deg, rgba(255,255,255,0.02) 0 2px, transparent 2px 10px),
+    radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.18), transparent),
+    radial-gradient(1px 1px at 70% 60%, rgba(255,255,255,0.14), transparent),
+    radial-gradient(1px 1px at 40% 80%, rgba(255,255,255,0.14), transparent);
+  background-size: auto, 240px 240px, 240px 240px, 240px 240px;
+  animation: floatStars 22s linear infinite;
+}
+@keyframes floatStars { to { transform: translateY(-220px) } }
+
+/* ---------- Layout / Sizing (WIDER & aligned) ---------- */
+.console-page .container{
+  min-height: 100vh;                               /* fill the screen */
+  width: min(1800px, 98vw);                         /* << wider */
+  max-width: none;                                  /* remove caps from global .container */
+  padding: clamp(0.5rem, 1.5vw, 2rem);             /* smaller side padding for more width */
+  margin: 0 auto;
+  display:flex; align-items:center; justify-content:center;
+}
+
+/* ---------- Console Card ---------- */
+.console-card{
+  width: 100%;
+  min-height: clamp(600px, 86vh, 980px);           /* tall card (unchanged) */
+  background: rgba(0,0,0,0.78);
+  backdrop-filter: blur(24px);
+  border: 1px solid var(--gray-4);
+  border-radius: 22px;
+  padding: clamp(1rem, 2vw, 2.2rem);
+  color: var(--text);
+  box-shadow: 0 28px 60px rgba(0,0,0,0.55);
+  animation: slideUp 0.8s ease-out;
+}
+@keyframes slideUp{ from{opacity:0; transform:translateY(16px)} to{opacity:1; transform:none} }
+
+/* ---------- Header ---------- */
+.console-header{
+  display:flex; justify-content:space-between; align-items:center;
+  margin-bottom: clamp(1rem, 2vw, 2rem);
+  flex-wrap:wrap; gap:1rem;
+}
+.console-title{ display:flex; align-items:center; gap:1rem; }
+
+.status-indicator{
+  display:flex; align-items:center; gap:.5rem;
+  font-size: .95rem; color: var(--text-muted);
+}
+.status-dot{ width:12px; height:12px; border-radius:50%; animation:pulse-dot 2s infinite; }
+.status-dot.connected{
+  background: var(--accent-2);
+  box-shadow: 0 0 10px rgba(255,122,26,0.45);
+}
+.status-dot.disconnected{
+  background: var(--gray-4);
+  box-shadow: 0 0 8px rgba(255,255,255,0.10);
+}
+@keyframes pulse-dot{ 0%,100%{opacity:1} 50%{opacity:.5} }
+
+/* Title color — SOLID orange (no gradients) */
+.console-h1{
+  font-size: clamp(1.6rem, 2.4vw, 2rem);
+  font-weight:700;
+  color: var(--accent-2) !important;
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  -webkit-text-fill-color: var(--accent-2) !important;
+  background-clip: initial !important;
+}
+
+/* filter toggle */
+.filter-toggle{ display:flex; align-items:center; gap:.5rem; cursor:pointer; color: var(--text-muted); font-size:.95rem; }
+.filter-toggle input[type="checkbox"]{ accent-color: var(--accent-2); }
+
+/* ---------- Terminal ---------- */
+.terminal-wrapper{
+  background: rgba(0,0,0,0.88);
+  border-radius: 16px; overflow: hidden;
+  border: 3px solid var(--gray-4);
+  margin-bottom: 1.25rem;
+  box-shadow: inset 0 0 18px rgba(255,122,26,0.12);
+}
+
+/* terminal header */
+.terminal-header{
+  background: rgba(0,0,0,0.82);
+  padding: .85rem 1.5rem; display:flex; justify-content:space-between; align-items:center;
+  border-bottom: 1px solid var(--gray-4);
+}
+
+/* REMOVE decorative window dots */
+.terminal-dots{ display:none !important; }
+.dot{ display:none !important; }
+
+.terminal-title{
+  font-family: "Courier New", monospace;
+  font-size: .95rem; color: var(--text-muted);
+}
+
+/* Bigger terminal area so the card feels large */
+.terminal{
+  background: transparent; color: var(--text);
+  font-family: "Courier New", monospace;
+  font-size: 1rem; line-height:1.5;
+  padding: 1.5rem;
+  height: clamp(260px, 46vh, 560px);
+  overflow-y: auto;
+  white-space: pre-wrap; word-break: break-word;
+}
+.terminal::-webkit-scrollbar{ width:10px; }
+.terminal::-webkit-scrollbar-track{ background: rgba(255,255,255,0.06); }
+.terminal::-webkit-scrollbar-thumb{ background: var(--gray-4); border-radius:6px; }
+
+.user-input{ color: var(--accent-2); font-weight:bold; }
+.schema-output{
+  color: var(--accent-2);
+  background: rgba(255,122,26,0.10);
+  padding:.2rem .5rem; border-radius:4px; margin:.2rem 0;
+}
+.normal-output{ color: var(--text); }
+
+/* ---------- Input Row ---------- */
+.input-row{ display:flex; gap:1rem; margin-bottom:1.25rem; }
+
+.terminal-input{
+  flex:1;
+  background: rgba(0,0,0,0.80);
+  border: 1px solid var(--gray-4);
+  border-radius: 10px;
+  padding: .95rem 1rem;
+  color: var(--text);
+  font-family: "Courier New", monospace;
+  font-size: 1rem;
+}
+.terminal-input::placeholder{ color: var(--text-muted); }
+.terminal-input:focus{
+  outline:none;
+  border-color: var(--accent-2);
+  box-shadow: 0 0 0 3px rgba(255,122,26,0.18);
+}
+
+/* Send button → Accent orange */
+.btn-send{
+  background: linear-gradient(180deg, var(--accent-1), var(--accent-2)) !important;
+  color:#FFFFFF !important;
+  font-weight:700;
+  min-width:110px;
+  border: none !important;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.6);
+}
+
+/* ---------- Control Row ---------- */
+.control-row{ display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1200px){
+  .console-page .container{ width: 98vw; padding: 1rem; }
+  .console-card{ min-height: 88vh; }
+}
+@media (max-width: 768px){
+  .console-header{ flex-direction:column; align-items:stretch; }
+  .input-row{ flex-direction:column; }
+  .control-row{ flex-direction:column; align-items:center; }
+  .control-row .btn{ width:100%; max-width:300px; }
+  .terminal{ height: clamp(220px, 42vh, 520px); }
+}
+
+
+:root { --nav-h: 64px; }
+@media (max-width: 768px){ :root { --nav-h: 56px; } }
+
+/* Make room for fixed navbar ONLY on console page */
+.console-page, .page-console, body[data-page="console"] .page {
+  padding-top: calc(var(--nav-h) + 8px);
+}

@@ -1,0 +1,274 @@
+/* ===========================
+   global.css — Unified Theme
+   Matches Landing, Home, Upload, Console
+   Palette only:
+   - Background: #0F0F0F–#1A1A1A
+   - Accent (orange): #FF6600–#FF7A1A
+   - Text: #FFFFFF (primary), #C8C8C8 (secondary)
+   - Gray surfaces: #333333–#444444
+   Functionality, class names, and animations unchanged.
+   =========================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* -------- Base -------- */
+body {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg); 
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+.page {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  animation: slideUp 0.8s ease-out;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* -------- Background layers (no images) -------- */
+.bg-full {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: -2;
+  background: linear-gradient(180deg, #0F0F0F 0%, #1A1A1A 100%);
+  background-attachment: fixed;
+}
+
+.bg-gradient {
+  width: 100%; height: 100%;
+  background: linear-gradient(180deg, #0F0F0F 0%, #1A1A1A 100%);
+  position: relative;
+}
+
+/* soft neutral/orange glows */
+.bg-gradient::before {
+  content: "";
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 122, 26, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
+  animation: pulse 4s ease-in-out infinite alternate;
+}
+
+@keyframes pulse { 0% {opacity:.5} 100% {opacity:1} }
+
+/* -------- Layout -------- */
+.container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* -------- Card -------- */
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 20px;
+  padding: 3rem;
+  max-width: 800px;
+  width: 100%;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: "";
+  position: absolute; top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.10), transparent);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer { 0% { left:-100% } 100% { left:100% } }
+
+.card-header { text-align: center; margin-bottom: 2rem; }
+
+/* -------- Headings / Text -------- */
+/* Force solid orange (no gradients) to match brand palette */
+.h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #FF7A1A !important;
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  -webkit-text-fill-color: #FF7A1A !important;
+  text-shadow: 0 2px 0 rgba(0,0,0,0.25);
+}
+
+@keyframes glow {
+  from { filter: drop-shadow(0 0 5px rgba(255, 122, 26, 0.25)); }
+  to   { filter: drop-shadow(0 0 16px rgba(255, 122, 26, 0.45)); }
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #C8C8C8;
+}
+
+.stack { display: flex; flex-direction: column; gap: 1rem; }
+.stack.center { align-items: center; }
+
+/* -------- Buttons -------- */
+.btn {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  position: relative;
+  overflow: hidden;
+  transform: translateY(0);
+  color: #FFFFFF;
+}
+
+.btn::before {
+  content: "";
+  position: absolute; top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn:hover::before { left: 100%; }
+.btn:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4); }
+.btn:active { transform: translateY(-1px); }
+
+/* Primary → Orange */
+.btn-primary {
+  background: linear-gradient(180deg, #FF6600 0%, #FF7A1A 100%);
+  color: #FFFFFF;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.6);
+}
+.btn-primary:hover { filter: brightness(1.05); }
+
+/* Secondary → Gray */
+.btn-secondary {
+  background: linear-gradient(180deg, #444444 0%, #333333 100%);
+  color: #FFFFFF;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55);
+}
+.btn-secondary:hover { filter: brightness(1.06); }
+
+/* Ghost → Neutral glass */
+.btn-ghost {
+  background: rgba(255, 255, 255, 0.10);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
+}
+.btn-ghost:hover { background: rgba(255, 255, 255, 0.14); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5); }
+
+/* "Danger" kept neutral gray to stay within palette */
+.btn-danger {
+  background: linear-gradient(180deg, #444444 0%, #333333 100%);
+  color: #FFFFFF;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.55);
+}
+.btn-danger:hover { filter: brightness(1.05); }
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+.btn:disabled:hover { transform: none; box-shadow: none; }
+
+/* Inline highlight → orange */
+.highlight {
+  color: #FF7A1A !important;
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  -webkit-text-fill-color: #FF7A1A !important;
+}
+
+/* -------- Floating particles (neutral/orange only) -------- */
+.bg-full::after {
+  content: "";
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-image:
+    radial-gradient(2px 2px at 20px 30px, rgba(255, 255, 255, 0.28), transparent),
+    radial-gradient(2px 2px at 40px 70px, rgba(255, 122, 26, 0.25), transparent),
+    radial-gradient(1px 1px at 90px 40px, rgba(255, 255, 255, 0.22), transparent),
+    radial-gradient(1px 1px at 130px 80px, rgba(255, 122, 26, 0.22), transparent);
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  animation: float-particles 20s linear infinite;
+}
+
+@keyframes float-particles {
+  0%   { transform: translateY(0px); }
+  100% { transform: translateY(-200px); }
+}
+
+/* -------- Responsive -------- */
+@media (max-width: 768px) {
+  .container { padding: 1rem; }
+  .card { padding: 2rem; }
+  .h1 { font-size: 2rem; }
+}
+
+
+
+
+/* Light mode button readability */
+html[data-theme="light"] .btn:not(.btn-primary),
+html[data-theme="light"] .btn:not(.btn-primary) * {
+  color: #111 !important;
+  -webkit-text-fill-color: #111 !important;
+}
+
+/* Keep primary buttons white-on-orange */
+html[data-theme="light"] .btn-primary,
+html[data-theme="light"] .btn-primary * {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+}
+
+/* Make ghost/secondary backgrounds actually white in light mode */
+html[data-theme="light"] .btn-ghost { background: #fff !important; border: 1px solid rgba(0,0,0,.1); }
+html[data-theme="light"] .btn-secondary { background: linear-gradient(180deg,#f3f4f6,#e5e7eb) !important; }
+
+
+
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+.animate-spin-slow { animation: spin-slow 14s linear infinite; }
+
+@keyframes sheen {
+  0%   { transform: translateX(-60%); }
+  100% { transform: translateX(60%); }
+}
+.animate-sheen { animation: sheen 4.5s linear infinite; }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-spin-slow, .animate-sheen { animation: none !important; }
+}

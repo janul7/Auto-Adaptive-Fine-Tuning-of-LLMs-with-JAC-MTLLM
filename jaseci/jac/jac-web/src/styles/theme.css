@@ -1,0 +1,194 @@
+/* Theme tokens + page backgrounds (adds on top of your global/home/console/landing CSS)
+   Works with: <html data-theme="dark|light"> and <body data-page="landing|home|upload|console|about">
+*/
+
+/* ===== Base (dark is default to match your current site) ===== */
+:root{
+  --bg-0:#0F0F0F; --bg-1:#1A1A1A;
+  --text:#FFFFFF; --text-muted:#CFCFCF;
+  --accent-1:#FF6600; --accent-2:#FF7A1A;
+  --surface:#161616; --glass:rgba(255,255,255,.06); --glass-border:rgba(255,255,255,.12);
+  --line:#333; --line-2:#444;
+}
+
+/* ===== Light theme (clean white + orange) ===== */
+html[data-theme="light"]{
+  --bg-0:#FCFCFD; --bg-1:#F5F6F8;
+  --text:#0F0F0F; --text-muted:#4B4B4B;
+  --accent-1:#FF7A1A; --accent-2:#FF5C00;
+  --surface:#FFFFFF; --glass:rgba(0,0,0,.04); --glass-border:rgba(0,0,0,.08);
+  --line:#E6E8EB; --line-2:#D9DBDF;
+}
+
+/* Harmonize with your existing classes (no functional changes) */
+body{ background:var(--bg-0); color:var(--text); }
+.h1,.console-h1{ color:var(--accent-2)!important; -webkit-text-fill-color:var(--accent-2)!important; }
+.btn-primary{ background:linear-gradient(180deg,var(--accent-1),var(--accent-2))!important; color:#fff!important; }
+.btn-secondary,.btn-danger{ background:linear-gradient(180deg,var(--line-2),var(--line))!important; color:var(--text)!important; }
+
+/* ===== Dynamic background for each page (CSS only, no images) ===== */
+.bg-dyn{ position:fixed; inset:0; z-index:-2; }
+.bg-dyn::before{ content:""; position:absolute; inset:0; background:linear-gradient(180deg,var(--bg-0),var(--bg-1)); }
+.bg-dyn::after{ content:""; position:absolute; inset:0; pointer-events:none; opacity:.9; }
+
+/* Landing = subtle warm orbs + grid (mirrors landing.css) */
+body[data-page="landing"] .bg-dyn::after{
+  background:
+    radial-gradient(60% 60% at 50% 10%, color-mix(in oklab, var(--accent-1) 18%, transparent) 0, transparent 60%),
+    radial-gradient(40% 40% at 10% 85%, color-mix(in oklab, var(--accent-2) 14%, transparent) 0, transparent 70%),
+    linear-gradient(transparent,transparent),
+    repeating-linear-gradient(135deg, color-mix(in oklab, var(--text) 6%, transparent) 0 2px, transparent 2px 11px);
+  animation: bg-float 22s linear infinite;
+}
+
+/* Home = vignette + faint stars */
+body[data-page="home"] .bg-dyn::after,
+body[data-page="upload"] .bg-dyn::after{
+  background:
+    radial-gradient(1200px 400px at 50% 0%, color-mix(in oklab, var(--accent-2) 12%, transparent) 0, transparent 70%),
+    radial-gradient(1800px 800px at 50% 120%, color-mix(in oklab, var(--text) 8%, transparent) 0, transparent 70%),
+    radial-gradient(1px 1px at 20% 30%, color-mix(in oklab, var(--text) 20%, transparent), transparent),
+    radial-gradient(1px 1px at 70% 60%, color-mix(in oklab, var(--text) 16%, transparent), transparent);
+  background-size:auto,auto,260px 260px,260px 260px;
+  animation: bg-float 26s linear infinite;
+}
+
+/* Console = dark panel feel w/ subtle orange rim light */
+body[data-page="console"] .bg-dyn::after{
+  background:
+    radial-gradient(800px 260px at 50% 0%, color-mix(in oklab, var(--accent-2) 10%, transparent) 0, transparent 70%),
+    radial-gradient(1200px 900px at 50% 120%, color-mix(in oklab, var(--text) 6%, transparent) 0, transparent 70%);
+  animation: bg-float 28s linear infinite;
+}
+
+/* About page = clean spotlight wash that also looks great in light theme */
+body[data-page="about"] .bg-dyn::after{
+  background:
+    radial-gradient(900px 600px at 15% 20%, color-mix(in oklab, var(--accent-1) 12%, transparent) 0, transparent 70%),
+    radial-gradient(1000px 700px at 85% 80%, color-mix(in oklab, var(--text) 6%, transparent) 0, transparent 70%);
+  animation: bg-float 24s linear infinite;
+}
+
+@keyframes bg-float{ to{ transform:translateY(-240px) } }
+
+
+/* ===== Light theme polish ===== */
+html[data-theme="light"] {
+  --bg: #f6f7fb;
+  --surface: #ffffff;
+  --text: #111111;
+  --text-muted: #475569;
+  --panel: rgba(0,0,0,0.03);
+  --panel-strong: rgba(0,0,0,0.06);
+  --ring: rgba(0,0,0,0.12);
+  --ring-strong: rgba(0,0,0,0.22);
+  --accent: #ff7a1a;
+  --accent-2: #ff8f3a;
+}
+
+/* Background layers */
+html[data-theme="light"] .bg-full,
+html[data-theme="light"] .bg-gradient {
+  background: linear-gradient(180deg, #f7f7fb 0%, #eef1f5 100%);
+}
+
+/* Card/readability */
+html[data-theme="light"] .card {
+  background: rgba(255,255,255,0.75);
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.10);
+}
+html[data-theme="light"] .subtitle { color: var(--text-muted); }
+
+/* Buttons */
+html[data-theme="light"] .btn-secondary {
+  background: linear-gradient(180deg, #f3f4f6 0%, #e5e7eb 100%);
+  color: #111;
+  border: 1px solid rgba(0,0,0,0.12);
+}
+html[data-theme="light"] .btn-ghost {
+  background: rgba(0,0,0,0.04);
+  color: #111;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+html[data-theme="light"] .btn-danger {
+  background: linear-gradient(180deg, #e5e7eb 0%, #d1d5db 100%);
+  color: #111;
+}
+
+/* Glass navbar/footer */
+html[data-theme="light"] .glass {
+  background: rgba(255,255,255,0.65);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+html[data-theme="light"] .footer { color: #475569; }
+
+
+/* NAV — readable in light mode everywhere */
+html[data-theme="light"] .topnav { 
+  background: rgba(255,255,255,.75);
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  backdrop-filter: blur(20px);
+}
+html[data-theme="light"] .topnav .brand,
+html[data-theme="light"] .topnav .nav-link {
+  color: #111 !important;       /* override any hard-coded white */
+}
+html[data-theme="light"] .topnav .nav-link:hover { color: var(--accent) !important; }
+html[data-theme="light"] .topnav .logo { color: var(--accent) !important; }
+
+
+
+
+/* Keep real content above decorative layers */
+.hero-wrap, .section-wrap, .container, .card, .showcase-section { 
+  position: relative; 
+  z-index: 2; 
+}
+
+/* Decorative layers never eat clicks */
+.bg-image, .bg-vignette, .net-lines, .floating-orbs { pointer-events: none; }
+
+/* Mobile type & spacing */
+@media (max-width: 768px) {
+  .display, .h1 { font-size: clamp(1.8rem, 7vw, 2.4rem); }
+  .subtitle, .lead { font-size: 1rem; }
+  .container { padding: 1rem; }
+  .card { padding: 1.25rem; border-radius: 16px; }
+}
+
+/* Light theme nav contrast everywhere */
+html[data-theme="light"] .topnav { 
+  background: rgba(255,255,255,.75);
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  backdrop-filter: blur(20px);
+}
+html[data-theme="light"] .topnav .brand,
+html[data-theme="light"] .topnav .nav-link { color:#111 !important; }
+html[data-theme="light"] .topnav .nav-link:hover { color: var(--accent) !important; }
+
+
+
+/* ---------- Light mode: button polish ---------- */
+html[data-theme="light"] .btn { 
+  color: #111; 
+  border: 1px solid rgba(0,0,0,.12);
+  box-shadow: 0 8px 22px rgba(0,0,0,.10);
+}
+html[data-theme="light"] .btn:hover { box-shadow: 0 12px 28px rgba(0,0,0,.14); }
+
+html[data-theme="light"] .btn-primary {
+  color: #fff !important;
+  border: 0;
+  background: linear-gradient(180deg, #FF7A1A, #FF6600);
+  box-shadow: 0 12px 30px rgba(255,122,26,.35);
+}
+html[data-theme="light"] .btn-secondary {
+  background: linear-gradient(180deg, #f3f4f6, #e5e7eb);
+}
+html[data-theme="light"] .btn-ghost {
+  background: #fff;
+}
+html[data-theme="light"] .btn-danger {
+  background: linear-gradient(180deg, #e5e7eb, #d1d5db);
+}

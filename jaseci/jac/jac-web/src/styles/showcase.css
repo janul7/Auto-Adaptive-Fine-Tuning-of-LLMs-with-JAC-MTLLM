@@ -1,0 +1,140 @@
+/* /* .showcase-section{ padding: 3rem 1rem 4rem; }
+.section-wrap{ max-width: 1100px; margin: 0 auto; }
+.section-title{ font-size:2rem; margin-bottom:.25rem; color:var(--text); }
+.section-lead{ color:var(--text-muted); margin-bottom:1.5rem; }
+
+.shots{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1rem; }
+.shot{ background:var(--glass); border:1px solid var(--glass-border); border-radius:16px; overflow:hidden; }
+.shot img{ width:100%; display:block; }
+.shot figcaption{ padding:.75rem 1rem; color:var(--text-muted); border-top:1px solid var(--glass-border); }
+
+@media (max-width:900px){ .shots{ grid-template-columns:1fr 1fr; } }
+@media (max-width:600px){ .shots{ grid-template-columns:1fr; } } */
+
+
+.showcase-section{ padding: 3rem 1rem 4rem; }
+.section-wrap{ max-width: 1200px; margin: 0 auto; }
+.section-title{ font-size:2rem; margin-bottom:.25rem; color:var(--text); text-align:center; }
+.section-lead{ color:var(--text-muted); margin-bottom:2rem; text-align:center; }
+
+/* GRID */
+.shots{ 
+  display:grid; 
+  grid-template-columns: repeat(4, 1fr); 
+  gap:1.2rem; 
+}
+.shot{ 
+  background:var(--glass); 
+  border:1px solid var(--glass-border); 
+  border-radius:18px; 
+  overflow:hidden; 
+  transition: transform .25s ease, box-shadow .25s ease; 
+}
+.shot:hover{ 
+  transform: translateY(-6px) scale(1.02); 
+  box-shadow: 0 16px 32px rgba(0,0,0,.35); 
+}
+
+/* NORMALIZED IMAGE BOX */
+.img-box{
+  aspect-ratio: 16 / 10;          /* forces consistent box */
+  width: 100%;
+  overflow: hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: #000;
+}
+.img-box img{
+  width:100%;
+  height:100%;
+  object-fit: cover;              /* fills the box */
+  display:block;
+  transition: transform .4s ease;
+}
+.shot:hover .img-box img{ transform: scale(1.08); }
+
+.shot figcaption{ 
+  padding:.75rem 1rem; 
+  color:var(--text-muted); 
+  border-top:1px solid var(--glass-border); 
+  text-align:center; 
+  font-weight:500;
+  transition: color .3s ease;
+}
+.shot:hover figcaption{ color: var(--text); }
+
+/* RESPONSIVE */
+@media (max-width:1100px){ .shots{ grid-template-columns: repeat(2, 1fr); } }
+@media (max-width:600px){ .shots{ grid-template-columns: 1fr; } } */
+
+
+
+.showcase-section { padding: 3rem 1rem 4rem; }
+.section-wrap     { max-width: 1200px; margin: 0 auto; }
+.section-title    { font-size: 2rem; margin-bottom: .25rem; color: var(--text); text-align: center; }
+.section-lead     { color: var(--text-muted); margin-bottom: 2rem; text-align: center; }
+
+/* GRID */
+.shots {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.2rem;
+}
+.shot {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 18px;
+  overflow: hidden;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.shot:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 32px rgba(0,0,0,.35);
+}
+
+/* IMAGE BOX – consistent height, no cropping */
+.img-box {
+  width: 100%;
+  aspect-ratio: 16 / 10;            /* uniform box across all cards */
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.03), rgba(0,0,0,.06)),
+    var(--glass);                    /* letterbox looks intentional */
+  border-bottom: 1px solid var(--glass-border);
+}
+
+/* contain = show full image with letterboxes if aspect doesn’t match */
+.img-box.contain img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;               /* <-- key change (no cropping) */
+  display: block;
+  image-rendering: auto;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* subtle inner vignette so edges don’t look stark */
+.img-box .vignette {
+  position: absolute; inset: 0;
+  box-shadow: inset 0 0 60px rgba(0,0,0,.18);
+  pointer-events: none;
+}
+
+/* caption */
+.shot figcaption {
+  padding: .75rem 1rem;
+  color: var(--text-muted);
+  text-align: center;
+  font-weight: 500;
+  transition: color .25s ease;
+}
+.shot:hover figcaption { color: var(--text); }
+
+/* RESPONSIVE */
+@media (max-width: 1100px) { .shots { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px)  { .shots { grid-template-columns: 1fr; } }

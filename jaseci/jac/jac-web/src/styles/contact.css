@@ -1,0 +1,98 @@
+/* Accent specifically for contact page */
+:root { --contact-accent: #fd6900; --contact-ring: rgba(124,58,237,.28); }
+html[data-theme="light"] { --contact-accent: #f1af53; --contact-ring: rgba(109,40,217,.22); }
+
+.contact-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 3rem 1rem;
+}
+
+.contact-card {
+  width: 100%;
+  max-width: 760px;
+  background: var(--surface, rgba(255,255,255,.07));
+  border: 1px solid var(--ring, rgba(255,255,255,.12));
+  border-radius: 24px;
+  padding: 2rem;
+  box-shadow: 0 30px 60px rgba(0,0,0,.35);
+}
+
+html[data-theme="light"] .contact-card {
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,.08);
+  box-shadow: 0 30px 60px rgba(0,0,0,.10);
+}
+
+.contact-header { text-align: center; margin-bottom: 1.25rem; }
+.contact-title { font-size: clamp(1.8rem, 3vw, 2.2rem); font-weight: 800; margin-bottom: .25rem; }
+.contact-lead { color: var(--text-muted); }
+
+.contact-form { display: grid; gap: 1rem; margin-top: 1rem; }
+.row.two { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+.contact-form label { display: grid; gap: .4rem; font-weight: 500; color: var(--text); }
+.contact-form input,
+.contact-form textarea,
+.contact-form select {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--ring);
+  background: var(--panel, rgba(255,255,255,.05));
+  color: var(--text);
+  padding: .9rem 1rem;
+  outline: none;
+  transition: box-shadow .2s, border-color .2s, background .2s;
+}
+
+html[data-theme="light"] .contact-form input,
+html[data-theme="light"] .contact-form textarea,
+html[data-theme="light"] .contact-form select {
+  background: #ffffff;
+  color: #111;
+  border-color: rgba(0,0,0,.12);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus,
+.contact-form select:focus {
+  border-color: var(--contact-accent);
+  box-shadow: 0 0 0 4px var(--contact-ring);
+}
+
+.agree { display: flex; align-items: center; gap: .6rem; color: var(--text-muted); }
+.agree a { color: var(--contact-accent); text-decoration: underline; }
+
+.contact-submit {
+  margin-top: .5rem;
+  width: 100%;
+  padding: 1rem 1.25rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--contact-accent);
+  box-shadow: 0 10px 30px rgb(238, 142, 8);
+  cursor: pointer;
+  transition: transform .15s ease, filter .15s ease;
+}
+.contact-submit:hover { filter: brightness(1.05); transform: translateY(-2px); }
+.contact-submit:active { transform: translateY(0); }
+
+@media (max-width: 760px) {
+  .row.two { grid-template-columns: 1fr; }
+}
+
+
+/* Visual layers should not capture clicks */
+.bg-image,
+.bg-vignette,
+.net-lines,
+.floating-orbs {
+  pointer-events: none;
+}
+
+/* Ensure the form is above patterns */
+.contact-page, .contact-card { position: relative; z-index: 5; }
