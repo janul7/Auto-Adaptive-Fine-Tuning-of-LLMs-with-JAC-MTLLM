@@ -1,1 +1,1 @@
-# Auto-Adaptive-Fine-tuning-for-Jac-MTLLM-using-RPG-Game-Generation
+# Auto-Adaptive Fine-Tuning of LLMs with JAC-MTLLM
