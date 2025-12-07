@@ -1,0 +1,1 @@
+This is out first implementation of the python script and it creates low quality maps for start we started from here.
